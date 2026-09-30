@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Citizen Digital Learning</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    background: #f5f7fb;
+    color: #253047;
+    line-height: 1.6;
+}
+
+header {
+    background: white;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 12px #0000000c;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #164e9b;
+}
+
+.logo-icon { font-size: 32px; }
+
+.logo h2 { font-size: 20px; }
+
+.logo small {
+    color: #64748b;
+    font-size: 12px;
+}
+
+nav {
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
+nav a {
+    text-decoration: none;
+    color: #334155;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+nav a:hover { color: #1769c2; }
+
+.hero {
+    padding: 75px 7%;
+    text-align: center;
+    color: white;
+    background: linear-gradient(135deg, #164e9b, #2878d0);
+}
+
+.hero .tag {
+    display: inline-block;
+    background: #e1efff;
+    color: #164e9b;
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    max-width: 850px;
+    margin: auto auto 18px;
+    font-size: 40px;
+    line-height: 1.25;
+}
+
+.hero p {
+    max-width: 720px;
+    margin: auto;
+    color: #eaf3ff;
+    font-size: 16px;
+}
+
+.search {
+    display: flex;
+    max-width: 580px;
+    margin: 28px auto 0;
+    background: white;
+    padding: 6px;
+    border-radius: 10px;
+}
+
+.search input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    padding: 12px;
+    font-size: 15px;
+}
+
+.search button {
+    background: #ffca55;
+    border: 0;
+    border-radius: 7px;
+    padding: 0 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.stats {
+    max-width: 850px;
+    margin: -28px auto 0;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    padding: 0 20px;
+}
+
+.stat {
+    background: white;
+    border-radius: 12px;
+    text-align: center;
+    padding: 22px 10px;
+    box-shadow: 0 5px 20px #0000000d;
+}
+
+.stat strong {
+    display: block;
+    color: #1769c2;
+    font-size: 26px;
+}
+
+.stat span {
+    font-size: 13px;
+    color: #64748b;
+}
+
+section { padding: 65px 7%; }
+
+.heading {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.heading h2 {
+    color: #164e9b;
+    font-size: 29px;
+    margin-bottom: 8px;
+}
+
+.heading p {
+    color: #64748b;
+    max-width: 680px;
+    margin: auto;
+}
+
+.topic-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.topic {
+    background: white;
+    border: 1px solid #e6ebf2;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px #00000007;
+    transition: .25s;
+}
+
+.topic:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 9px 25px #00000012;
+}
+
+.topic-icon { font-size: 35px; }
+
+.topic h3 {
+    color: #164e9b;
+    margin: 10px 0;
+}
+
+.topic p {
+    color: #64748b;
+    font-size: 14px;
+    min-height: 65px;
+}
+
+button { font-family: inherit; }
+
+.primary-btn {
+    margin-top: 15px;
+    border: 0;
+    background: #1769c2;
+    color: white;
+    padding: 11px 17px;
+    border-radius: 7px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.primary-btn:hover { background: #104f98; }
+
+.guide {
+    display: none;
+    background: white;
+    border-radius: 14px;
+    padding: 30px;
+    margin-top: 30px;
+    border-top: 5px solid #1769c2;
+    box-shadow: 0 5px 20px #00000010;
+}
+
+.guide h2 {
+    color: #164e9b;
+    margin-bottom: 8px;
+}
+
+.guide-intro {
+    color: #64748b;
+    margin-bottom: 20px;
+}
+
+.guide-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: #f3f7fc;
+    padding: 14px;
+    border-radius: 9px;
+    margin: 10px 0;
+}
+
+.guide-row b {
+    background: #1769c2;
+    color: white;
+    border-radius: 50%;
+    min-width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+}
+
+.tip {
+    margin-top: 20px;
+    padding: 15px;
+    background: #fff7df;
+    border-left: 4px solid #e9ad27;
+    border-radius: 7px;
+}
+
+.official-link {
+    display: inline-block;
+    margin-top: 18px;
+    background: #e8f2ff;
+    color: #164e9b;
+    padding: 10px 16px;
+    border-radius: 7px;
+    font-weight: bold;
+}
+
+.close-btn {
+    float: right;
+    border: 0;
+    background: #edf2f7;
+    border-radius: 7px;
+    padding: 7px 12px;
+    cursor: pointer;
+}
+
+.tips-section { background: #eaf2ff; }
+
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.tip-card {
+    background: white;
+    padding: 23px;
+    border-radius: 12px;
+}
+
+.tip-card h3 {
+    color: #164e9b;
+    margin-bottom: 8px;
+}
+
+.tip-card p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.quiz {
+    max-width: 750px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 14px;
+    background: white;
+    box-shadow: 0 4px 18px #0000000c;
+}
+
+.quiz h3 {
+    color: #164e9b;
+    margin-bottom: 15px;
+}
+
+.quiz-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 13px 16px;
+    margin: 10px 0;
+    border: 1px solid #dce4ef;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+}
+
+.quiz-option:hover {
+    background: #edf5ff;
+    border-color: #1769c2;
+}
+
+#quizResult {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.about {
+    background: white;
+    text-align: center;
+}
+
+.about-box {
+    max-width: 850px;
+    margin: auto;
+    background: #f3f7fc;
+    padding: 30px;
+    border-radius: 14px;
+}
+
+.about-box p {
+    color: #526176;
+    margin-top: 10px;
+}
+
+footer {
+    background: #12396e;
+    color: white;
+    text-align: center;
+    padding: 28px 15px;
+}
+
+footer p {
+    font-size: 13px;
+    color: #dbeafe;
+    margin-top: 5px;
+}
+
+.notice {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 18px;
+}
+
+@media (max-width: 850px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav { justify-content: center; }
+
+    .topic-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .tips-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .hero h1 { font-size: 33px; }
+}
+
+@media (max-width: 560px) {
+    .topic-grid,
+    .tips-grid { grid-template-columns: 1fr; }
+
+    .stats { gap: 8px; }
+
+    .stat { padding: 15px 5px; }
+
+    .stat strong { font-size: 21px; }
+
+    .stat span { font-size: 11px; }
+
+    .hero { padding: 60px 6%; }
+
+    .hero h1 { font-size: 28px; }
+
+    section { padding: 48px 6%; }
+
+    .search { flex-direction: column; gap: 5px; }
+
+    .search button { padding: 12px; }
+
+    .guide { padding: 20px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        <div class="logo-icon">🇮🇳</div>
+        <div>
+            <h2>Citizen Digital Assistance</h2>
+            <small>Learn • Access • Empower</small>
+        </div>
+    </div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#topics">Services</a>
+        <a href="#tips">Safety Tips</a>
+        <a href="#quiz">Quiz</a>
+        <a href="#about">About</a>
+    </nav>
+</header>
+
+<main>
+
+<section class="hero" id="home">
+    <span class="tag">Community Engagement Project</span>
+
+    <h1>Assisting Citizens in Using Government Digital Portals</h1>
+
+    <p>
+        Learn how to access online government services with simple
+        explanations, step-by-step guidance and useful digital safety tips.
+    </p>
+
+    <div class="search">
+        <input id="searchInput"
+               type="text"
+               placeholder="Search Aadhaar, PAN, Passport...">
+        <button onclick="searchService()">Search →</button>
+    </div>
+</section>
+
+<div class="stats">
+    <div class="stat">
+        <strong>6+</strong>
+        <span>Service Guides</span>
+    </div>
+    <div class="stat">
+        <strong>20+</strong>
+        <span>Helpful Steps</span>
+    </div>
+    <div class="stat">
+        <strong>1</strong>
+        <span>Interactive Quiz</span>
+    </div>
+</div>
+
+<section id="topics">
+    <div class="heading">
+        <h2>📚 Explore Government Services</h2>
+        <p>
+            Select a topic and learn how to use common government
+            digital services step by step.
+        </p>
+    </div>
+
+    <div class="topic-grid" id="topicGrid">
+
+        <article class="topic" data-key="aadhaar">
+            <div class="topic-icon">🪪</div>
+            <h3>Aadhaar Services</h3>
+            <p>Learn about Aadhaar-related services, updates and downloads.</p>
+            <button class="primary-btn" onclick="openGuide('aadhaar')">Learn More →</button>
+        </article>
+
+        <article class="topic" data-key="pan">
+            <div class="topic-icon">💳</div>
+            <h3>PAN Card</h3>
+            <p>Understand PAN applications, corrections and related services.</p>
+            <button class="primary-btn" onclick="openGuide('pan')">Learn More →</button>
+        </article>
+
+        <article class="topic" data-key="passport">
+            <div class="topic-icon">🛂</div>
+            <h3>Passport Services</h3>
+            <p>Learn about registration, applications and appointments.</p>
+            <button class="primary-btn" onclick="openGuide('passport')">Learn More →</button>
+        </article>
+
+        <article class="topic" data-key="certificate">
+            <div class="topic-icon">📄</div>
+            <h3>Certificates</h3>
+            <p>Understand the process for selected income, caste and other certificates.</p>
+            <button class="primary-btn" onclick="openGuide('certificate')">Learn More →</button>
+        </article>
+
+        <article class="topic" data-key="driving">
+            <div class="topic-icon">🚗</div>
+            <h3>Driving Licence</h3>
+            <p>Explore online licence services and application steps.</p>
+            <button class="primary-btn" onclick="openGuide('driving')">Learn More →</button>
+        </article>
+
+        <article class="topic" data-key="scholarship">
+            <div class="topic-icon">🎓</div>
+            <h3>Scholarships</h3>
+            <p>Learn about scholarship applications and document preparation.</p>
+            <button class="primary-btn" onclick="openGuide('scholarship')">Learn More →</button>
+        </article>
+
+    </div>
+
+    <div class="guide" id="guide">
+        <button class="close-btn" onclick="closeGuide()">✕ Close</button>
+        <div id="guideContent"></div>
+    </div>
+</section>
+
+<section class="tips-section" id="tips">
+    <div class="heading">
+        <h2>💡 Smart Digital Tips</h2>
+        <p>Remember these important tips when using online government services.</p>
+    </div>
+
+    <div class="tips-grid">
+        <div class="tip-card">
+            <h3>🔐 Protect Your OTP</h3>
+            <p>Never share your OTP, PIN or password with another person.</p>
+        </div>
+
+        <div class="tip-card">
+            <h3>🌐 Use Official Websites</h3>
+            <p>Check the website address carefully before entering personal details.</p>
+        </div>
+
+        <div class="tip-card">
+            <h3>📁 Keep Documents Ready</h3>
+            <p>Check the document requirements before starting an application.</p>
+        </div>
+
+        <div class="tip-card">
+            <h3>💾 Save Reference Numbers</h3>
+            <p>Keep your application or acknowledgement number for future tracking.</p>
+        </div>
+
+        <div class="tip-card">
+            <h3>📱 Log Out Safely</h3>
+            <p>Always log out after using a shared computer or device.</p>
+        </div>
+
+        <div class="tip-card">
+            <h3>⚠️ Avoid Suspicious Links</h3>
+            <p>Do not click unknown links promising guaranteed benefits or payments.</p>
+        </div>
+    </div>
+</section>
+
+<section id="quiz">
+    <div class="heading">
+        <h2>🧠 Quick Citizen Quiz</h2>
+        <p>Test your knowledge of safe digital services.</p>
+    </div>
+
+    <div class="quiz">
+        <h3 id="question">What should you do with an OTP?</h3>
+
+        <button class="quiz-option" onclick="answer(0)">
+            A. Share it with anyone who asks
+        </button>
+
+        <button class="quiz-option" onclick="answer(1)">
+            B. Keep it confidential
+        </button>
+
+        <button class="quiz-option" onclick="answer(2)">
+            C. Post it online
+        </button>
+
+        <p id="quizResult" aria-live="polite"></p>
+
+        <button class="primary-btn" id="nextBtn"
+                onclick="nextQuestion()" style="display:none">
+            Next Question →
+        </button>
+    </div>
+</section>
+
+<section id="about" class="about">
+    <div class="heading">
+        <h2>🌱 About This CEP Project</h2>
+    </div>
+
+    <div class="about-box">
+        <h3>Assisting Citizens in Using Government Digital Portals</h3>
+
+        <p>
+            This Community Engagement Project aims to help citizens
+            understand and access digital government services.
+            It provides simple instructions, document guidance,
+            digital safety awareness and information about common
+            online services.
+        </p>
+
+        <p>
+            The project encourages digital literacy and helps citizens
+            become more confident when navigating online services.
+            It is an educational guide and is not an official
+            government website.
+        </p>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <h3>🇮🇳 Citizen Digital Assistance</h3>
+    <p>Community Engagement Project (CEP)</p>
+    <p>Learn • Practice • Access • Empower</p>
+    <p class="notice">
+        Educational prototype. Verify current requirements on official portals.
+    </p>
+</footer>
+
+<script>
+const guides = {
+    aadhaar: {
+        title: "🪪 Aadhaar Services",
+        intro: "A simple guide to understanding Aadhaar-related services.",
+        steps: [
+            "Choose the Aadhaar service you need.",
+            "Read the eligibility and document requirements.",
+            "Visit the official UIDAI website or an authorised service centre.",
+            "Follow the instructions for the selected service.",
+            "Save the acknowledgement if one is provided."
+        ],
+        tip: "Never share your OTP or confidential Aadhaar information with strangers.",
+        url: "https://uidai.gov.in/"
+    },
+
+    pan: {
+        title: "💳 PAN Card Services",
+        intro: "Understand the basic process for PAN-related services.",
+        steps: [
+            "Identify whether you need a new PAN, correction or another service.",
+            "Check the current eligibility and document requirements.",
+            "Use an authorised PAN service provider.",
+            "Enter your details carefully and complete required verification.",
+            "Save your acknowledgement or application number."
+        ],
+        tip: "Check your name and date of birth carefully before submitting.",
+        url: "https://www.incometax.gov.in/"
+    },
+
+    passport: {
+        title: "🛂 Passport Services",
+        intro: "Learn the general steps involved in a passport application.",
+        steps: [
+            "Visit the official Passport Seva website.",
+            "Register or log in as instructed.",
+            "Complete the relevant application form.",
+            "Follow the payment and appointment instructions.",
+            "Attend the appointment and track your application."
+        ],
+        tip: "Check the latest document list and appointment instructions before applying.",
+        url: "https://www.passportindia.gov.in/"
+    },
+
+    certificate: {
+        title: "📄 Certificate Services",
+        intro: "Learn the general process for selected government certificates.",
+        steps: [
+            "Identify the certificate you require.",
+            "Check eligibility and the accepted supporting documents.",
+            "Find the relevant official state or local government portal.",
+            "Complete the application and upload documents if required.",
+            "Save the reference number and check the application status."
+        ],
+        tip: "Requirements differ by certificate and state. Check the relevant portal.",
+        url: "https://www.india.gov.in/"
+    },
+
+    driving: {
+        title: "🚗 Driving Licence Services",
+        intro: "Understand common online driving licence services.",
+        steps: [
+            "Visit the official Parivahan website.",
+            "Choose your state and the relevant service.",
+            "Read the eligibility and document requirements.",
+            "Complete the form and any required fee or appointment steps.",
+            "Follow the instructions to check your application status."
+        ],
+        tip: "Some services require an in-person visit or test.",
+        url: "https://parivahan.gov.in/"
+    },
+
+    scholarship: {
+        title: "🎓 Scholarship Services",
+        intro: "Learn the basic steps for an online scholarship application.",
+        steps: [
+            "Find a scholarship relevant to your course and eligibility.",
+            "Check the deadline and required documents.",
+            "Register or log in to the relevant official portal.",
+            "Complete the application and provide supporting documents.",
+            "Submit the form and save the application number."
+        ],
+        tip: "Check eligibility and deadlines using the official scholarship notice.",
+        url: "https://scholarships.gov.in/"
+    }
+};
+
+function openGuide(key) {
+    const item = guides[key];
+    if (!item) return;
+
+    const guide = document.getElementById("guide");
+    const content = document.getElementById("guideContent");
+
+    content.replaceChildren();
+
+    const title = document.createElement("h2");
+    title.textContent = item.title;
+
+    const intro = document.createElement("p");
+    intro.className = "guide-intro";
+    intro.textContent = item.intro;
+
+    content.append(title, intro);
+
+    item.steps.forEach((step, index) => {
+        const row = document.createElement("div");
+        row.className = "guide-row";
+
+        const number = document.createElement("b");
+        number.textContent = index + 1;
+
+        const text = document.createElement("span");
+        text.textContent = step;
+
+        row.append(number, text);
+        content.appendChild(row);
+    });
+
+    const tip = document.createElement("div");
+    tip.className = "tip";
+    tip.textContent = "💡 Citizen Tip: " + item.tip;
+    content.appendChild(tip);
+
+    const link = document.createElement("a");
+    link.className = "official-link";
+    link.href = item.url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = "Visit Official Website ↗";
+    content.appendChild(link);
+
+    guide.style.display = "block";
+    guide.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function closeGuide() {
+    document.getElementById("guide").style.display = "none";
+}
+
+function searchService() {
+    const query = document.getElementById("searchInput")
+        .value.trim().toLowerCase();
+
+    const cards = document.querySelectorAll(".topic");
+    let match = null;
+
+    cards.forEach(card => {
+        const found = card.textContent.toLowerCase().includes(query);
+        card.style.display = !query || found ? "" : "none";
+
+        if (query && found && !match) {
+            match = card.dataset.key;
+        }
+    });
+
+    if (!query) {
+        document.getElementById("topics").scrollIntoView({
+            behavior: "smooth"
+        });
+    } else if (match) {
+        openGuide(match);
+    } else {
+        alert("No matching service found. Try Aadhaar, PAN, Passport, Certificate, Driving Licence or Scholarship.");
+    }
+}
+
+document.getElementById("searchInput").addEventListener("keydown", event => {
+    if (event.key === "Enter") searchService();
+});
+
+const questions = [
+    {
+        question: "What should you do with an OTP?",
+        options: [
+            "Share it with anyone who asks",
+            "Keep it confidential",
+            "Post it online"
+        ],
+        correct: 1,
+        explanation: "Correct! OTPs should remain confidential."
+    },
+    {
+        question: "Where should you check application requirements?",
+        options: [
+            "An unknown social media post",
+            "A random message",
+            "The relevant official portal"
+        ],
+        correct: 2,
+        explanation: "Correct! Use the relevant official portal."
+    },
+    {
+        question: "What should you save after submitting an application?",
+        options: [
+            "Your password in a public place",
+            "The acknowledgement or reference number",
+            "Your OTP"
+        ],
+        correct: 1,
+        explanation: "Correct! The reference number may help you track your application."
+    }
+];
+
+let questionIndex = 0;
+let answered = false;
+
+function renderQuestion() {
+    const q = questions[questionIndex];
+
+    document.getElementById("question").textContent =
+        (questionIndex + 1) + ". " + q.question;
+
+    document.querySelectorAll(".quiz-option").forEach((button, i) => {
+        button.textContent = q.options[i];
+        button.disabled = false;
+        button.style.background = "white";
+        button.style.borderColor = "#dce4ef";
+    });
+
+    document.getElementById("quizResult").textContent = "";
+    document.getElementById("nextBtn").style.display = "none";
+    answered = false;
+}
+
+function answer(selected) {
+    if (answered) return;
+    answered = true;
+
+    const q = questions[questionIndex];
+    const result = document.getElementById("quizResult");
+
+    if (selected === q.correct) {
+        result.textContent = "✅ " + q.explanation;
+    } else {
+        result.textContent = "❌ Not quite. " + q.explanation;
+    }
+
+    result.style.color = selected === q.correct ? "#167044" : "#b45309";
+
+    document.querySelectorAll(".quiz-option").forEach(button => {
+        button.disabled = true;
+    });
+
+    const next = document.getElementById("nextBtn");
+    next.textContent = questionIndex === questions.length - 1
+        ? "Try Again ↻"
+        : "Next Question →";
+    next.style.display = "inline-block";
+}
+
+function nextQuestion() {
+    if (questionIndex === questions.length - 1) {
+        questionIndex = 0;
+    } else {
+        questionIndex++;
+    }
+    renderQuestion();
+}
+</script>
+
+</body>
+</html>
